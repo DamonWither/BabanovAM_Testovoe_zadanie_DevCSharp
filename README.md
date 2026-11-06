@@ -6,21 +6,55 @@ REST API на ASP.NET Core 8 для учёта уязвимостей и фон�
 
 ## Быстрый запуск
 
-Нужен .NET 8 SDK; для восстановления пакетов - доступ к NuGet. База данных и Docker не требуются. Выполните из папки с `VulnerabilityTracker.sln`:
+**Требования:** .NET 8 SDK (не только Runtime). Для клонирования нужен Git. Для запуска через Visual Studio — Visual Studio 2022 с обновлениями и компонентом «ASP.NET и веб-разработка».
+
+Проверьте наличие SDK:
+
+```bash
+dotnet --list-sdks
+```
+
+В списке должна присутствовать версия `8.0.xxx`. Если её нет, установите [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0), затем перезапустите терминал и среду разработки.
+
+**Получение проекта**
+
+Вариант 1 - скачать ZIP:
+
+1. Откройте [репозиторий проекта](https://github.com/DamonWither/BabanovAM_Testovoe_zadanie_DevCSharp).
+2. Нажмите **Code → Download ZIP**.
+3. Распакуйте архив.
+
+Вариант 2 - клонировать через Git:
+
+```bash
+git clone https://github.com/DamonWither/BabanovAM_Testovoe_zadanie_DevCSharp.git
+cd BabanovAM_Testovoe_zadanie_DevCSharp
+```
+
+**Сборка, тестирование и запуск через терминал**
+
+Откройте терминал в папке с `VulnerabilityTracker.sln` и выполните:
 
 ```bash
 dotnet restore VulnerabilityTracker.sln
 dotnet build VulnerabilityTracker.sln -c Release --no-restore
 dotnet test VulnerabilityTracker.sln -c Release --no-build
-dotnet run --project src/VulnerabilityTracker.Api --launch-profile http
+dotnet run --project src/VulnerabilityTracker.Api -c Release --no-build --launch-profile http
 ```
 
-```Через Visual Studio
-- Откройте VulnerabilityTracker.sln
-- Назначьте VulnerabilityTracker.Api запускаемым проектом
-- Выбери профиль http
-- Нажми F5 для запуска с отладкой или Ctrl+F5 без неё
-```
+**Альтернативный запуск через Visual Studio**
+
+1. Откройте `VulnerabilityTracker.sln`.
+2. Назначьте `VulnerabilityTracker.Api` запускаемым проектом.
+3. Выберите профиль **http**.
+4. Нажмите **F5** для запуска с отладкой или **Ctrl+F5** без неё.
+
+Для выполнения тестов выберите **Тест → Выполнить все тесты**.
+
+После запуска откройте Swagger: http://localhost:5080/swagger.
+
+Для остановки в терминале нажмите **Ctrl+C**, при запуске с отладкой в Visual Studio — **Shift+F5**. Данные хранятся только в памяти и теряются после остановки приложения.
+
 
 - Swagger: http://localhost:5080/swagger
 - OpenAPI: http://localhost:5080/swagger/v1/swagger.json
