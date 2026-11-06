@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:5080
+@vulnerabilityId = 00000000-0000-0000-0000-000000000000
+@scanId = 00000000-0000-0000-0000-000000000000
+
+### Create vulnerability; copy returned id into vulnerabilityId
+POST {{baseUrl}}/api/vulnerabilities
+Content-Type: application/json
+
+{"name":"SQL injection","severity":"Critical"}
+
+### Get vulnerability
+GET {{baseUrl}}/api/vulnerabilities/{{vulnerabilityId}}
+
+### Queue scan; copy returned id into scanId
+POST {{baseUrl}}/api/scans
+Content-Type: application/json
+
+{"repositoryUrl":"https://gitlab.com/example/project.git"}
+
+### Get all scans ordered by status and creation time
+GET {{baseUrl}}/api/scans
+
+### Get status/result
+GET {{baseUrl}}/api/scans/{{scanId}}
+
+### Cancel queued or running scan
+POST {{baseUrl}}/api/scans/{{scanId}}/cancel
+
+### Validation error
+POST {{baseUrl}}/api/vulnerabilities
+Content-Type: application/json
+
+{"name":" ","severity":"Unknown"}

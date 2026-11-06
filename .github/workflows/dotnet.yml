@@ -1,0 +1,13 @@
+name: Build and test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet restore VulnerabilityTracker.sln
+      - run: dotnet build VulnerabilityTracker.sln --no-restore -c Release
+      - run: dotnet test VulnerabilityTracker.sln --no-build -c Release
